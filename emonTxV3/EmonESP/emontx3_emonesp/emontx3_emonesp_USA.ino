@@ -2,12 +2,13 @@
 // Supports CT + ACAC power monitoring and pulse counting.
 // Licence: GPLv3
 
-#include <avr/wdt.h>
+#include <avr/wdt.h>. // CHECK ON THIS!
 
-#define FirmwareVersion = 1.0
-#define DEBUG 0
-#define emonTxV3 1
-#define PULSE_ENABLE 0
+
+#define FirmwareVersion = 1.0 //OK
+#define DEBUG 0                       // means not in debug mode
+#define emonTxV3 1                   // ok
+#define PULSE_ENABLE 0               // no pulse counting. OK
 
 #include "EmonLib.h"                   // Include Emon Library:  https://github.com/openenergymonitor/EmonLib
 EnergyMonitor ct1;                     // Create an instance
@@ -15,7 +16,19 @@ EnergyMonitor ct2;                     // Create an instance
 EnergyMonitor ct3;                     // Create an instance
 EnergyMonitor ct4;                     // Create an instance
 
+//NEW CODE
+#include <OneWire.h>                                                  //http://www.pjrc.com/teensy/td_libs_OneWire.html
+#include <DallasTemperature.h>                                        //http://download.milesburton.com/Arduino/MaximTemperature/DallasTemperature_LATEST.zip
+boolean DEBUG = 1;                //Print Serial Debug
+const byte Vrms_USA = 120;             // VRMS for USA apparent power
+const byte TIME_BETWEEN_READINGS = 10;            //Time between readings
+const float Vcal_USA=             130.0;                           
+boolean USA=TRUE;
+// NEW CODE
+
+
 float Vcal =          268.97;          // (230V x 13) / (9V x 1.2) = 276.9 Calibration for UK AC-AC adapter 77DB-06-09 
+
 const float Ical1 =   90.9;            // (2000 turns / 22 Ohm burden) = 90.9
 const float Ical2 =   90.9;            // (2000 turns / 22 Ohm burden) = 90.9
 const float Ical3 =   90.9;            // (2000 turns / 22 Ohm burden) = 90.9
